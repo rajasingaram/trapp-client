@@ -27,7 +27,7 @@ StepperContent.propTypes = {
   onNext: PropTypes.func,
   onPrevious: PropTypes.func,
   onReset: PropTypes.func,
-  nextButtonText: PropTypes.string,
+  nextButtonText: PropTypes.object,
   previousButtonText: PropTypes.string,
   resetButtonText: PropTypes.string
 };

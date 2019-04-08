@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import StepperContent from "./Stepper/StepperContent";
 import { Consumer } from "../context";
-import Axios from "axios";
+import { bulkInsertStories } from "../serverCall";
 
 export class UploadConfirmation extends Component {
   constructor(props) {
@@ -37,16 +37,7 @@ export class UploadConfirmation extends Component {
       error: null
     });
 
-    const ownerUrl = `https://5c9f5f3c-f925-43b8-8102-d8e834a9160a.mock.pstmn.io/userstories/bulkInsert`;
-    Axios.post(ownerUrl, JSON.stringify(message), {
-      headers: {
-        "Content-Type": "application/json",
-        apiKey: apiKey
-      },
-      cache: "no-cache",
-      redirect: "follow",
-      referrer: "no-referrer"
-    })
+    bulkInsertStories(message, apiKey)
       .catch(err =>
         this.setState({
           isUploadInprogress: false,
@@ -92,6 +83,8 @@ export class UploadConfirmation extends Component {
             }
           };
 
+          const isButtonDisabled =
+            this.state.isUploadInprogress || this.state.response !== null;
           return (
             <StepperContent
               headerText="Confirm Information and Upload User Stories"
@@ -102,7 +95,7 @@ export class UploadConfirmation extends Component {
               nextButtonText={buttonText()}
               onPrevious={() => onPreviousClick()}
               onReset={() => onResetClick()}
-              isButtonDisabled={this.state.isUploadInprogress}>
+              isButtonDisabled={isButtonDisabled}>
               {this.state.error
                 ? this.displayErrorMessage(this.state.error)
                 : this.state.response
@@ -121,7 +114,7 @@ export class UploadConfirmation extends Component {
 
   displayErrorMessage = error => {
     return (
-      <div class="alert alert-danger" role="alert">
+      <div className="alert alert-danger" role="alert">
         {error}
       </div>
     );
@@ -131,7 +124,7 @@ export class UploadConfirmation extends Component {
     return (
       <div className="my-3 p-3">
         {response.createdStories && (
-          <ul class="list-group">
+          <ul className="list-group">
             {response.createdStories.map(item =>
               this.displayUserStories("success", item)
             )}
@@ -139,7 +132,7 @@ export class UploadConfirmation extends Component {
         )}
 
         {response.errorStories && (
-          <ul class="list-group">
+          <ul className="list-group">
             {response.errorStories.map(item =>
               this.displayUserStories("danger", item)
             )}
@@ -151,7 +144,9 @@ export class UploadConfirmation extends Component {
 
   displayUserStories = (status, userStory) => {
     return (
-      <li class={"list-group-item list-group-item-" + status}>
+      <li
+        className={"list-group-item list-group-item-" + status}
+        key={userStory.userStoryId}>
         {userStory.userStoryId + " - " + userStory.name}
       </li>
     );

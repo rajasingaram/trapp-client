@@ -11,8 +11,6 @@ class Result extends Component {
       let styling =
         "list-group-item list-group-item-action" + (isActive ? " active" : "");
 
-      console.log(selectedItem);
-
       return (
         <button
           type="button"

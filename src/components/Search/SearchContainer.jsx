@@ -10,33 +10,37 @@ class SearchContainer extends Component {
     this.state = {
       query: "",
       isSearchProgress: false,
-      results: props.results || []
+      results: props.results || [],
+      error: null
     };
   }
 
   search = searchTerm => {
     this.setState({
       query: searchTerm,
-      isSearchProgress: true
+      isSearchProgress: true,
+      error: null
     });
 
-    try {
-      this.props.doSearch(searchTerm).then(res => {
+    this.props
+      .doSearch(searchTerm)
+      .then(res => {
         this.setState({
           isSearchProgress: false,
-          results: res
+          results: res,
+          error: null
+        });
+      })
+      .catch(error => {
+        this.setState({
+          isSearchProgress: false,
+          results: [],
+          error: error
         });
       });
-    } catch (e) {
-      this.setState({
-        isSearchProgress: false,
-        results: []
-      });
-    }
   };
 
   render() {
-    console.log(this.state.results);
     return (
       <div className="search-container my-3">
         <Search
@@ -45,14 +49,19 @@ class SearchContainer extends Component {
           isSearchProgress={this.state.isSearchProgress}
           doSearch={searchTerm => this.search(searchTerm)}
         />
-
-        <Result
-          key={"results" + this.key}
-          type={this.props.type}
-          selectedItem={this.props.selectedItem}
-          results={this.state.results}
-          onSelected={selectedItem => this.props.onItemSelected(selectedItem)}
-        />
+        {this.state.error ? (
+          <div className="alert alert-danger mt-4" role="alert">
+            {"Error while importing user stories." + this.state.error}
+          </div>
+        ) : (
+          <Result
+            key={"results" + this.key}
+            type={this.props.type}
+            selectedItem={this.props.selectedItem}
+            results={this.state.results}
+            onSelected={selectedItem => this.props.onItemSelected(selectedItem)}
+          />
+        )}
       </div>
     );
   }

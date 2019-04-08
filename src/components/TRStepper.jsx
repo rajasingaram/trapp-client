@@ -13,7 +13,7 @@ export class TRStepper extends Component {
 
   componentDidMount() {
     this.stepper = new Stepper(this.stepperContainer, {
-      linear: false,
+      linear: true,
       animation: true
     });
 

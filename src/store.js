@@ -56,7 +56,6 @@ export const reducer = (state, action) => {
       };
 
     case "SELECT_TEAM":
-      console.log(action.payload);
       return {
         ...state,
         teamId: action.payload,

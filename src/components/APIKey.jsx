@@ -56,7 +56,7 @@ export class APIKey extends Component {
             <li>Paste and submit your key below.</li>
           </ul>
         </div>
-        <p class="font-italic">
+        <p className="font-italic">
           NOTE: More info on{" "}
           <a
             className="alert-link"

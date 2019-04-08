@@ -45,7 +45,7 @@ const StepperFooter = props => {
 
 StepperFooter.propTypes = {
   nextButtonDisabled: PropTypes.bool.isRequired,
-  nextButtonText: PropTypes.string,
+  nextButtonText: PropTypes.object,
   previousButtonText: PropTypes.string,
   resetButtonText: PropTypes.string,
   onNextClick: PropTypes.func,

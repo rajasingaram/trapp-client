@@ -3,21 +3,16 @@ import PropTypes from "prop-types";
 import StepperContent from "./Stepper/StepperContent";
 import { Consumer } from "../context";
 import SearchContainer from "./Search/SearchContainer";
-import Axios from "axios";
+import { searchTeams } from "../serverCall";
 
 class TeamSelection extends Component {
   doTeamSearch = async (searchTerm, apiKey, dispatch) => {
-    const ownerUrl = `https://5c9f5f3c-f925-43b8-8102-d8e834a9160a.mock.pstmn.io/teams/${searchTerm}`;
-    const response = await Axios.get(ownerUrl, {
-      headers: {
-        "Content-Type": "application/json",
-        apiKey: apiKey
-      }
-    });
-
-    dispatch({ type: "UPDATE_TEAMS", payload: response.data });
-
-    return response.data;
+    return searchTeams(searchTerm, apiKey)
+      .then(res => res.data)
+      .then(res => {
+        dispatch({ type: "UPDATE_TEAMS", payload: res });
+        return res;
+      });
   };
 
   onTeamSelection = (team, dispatch) => {
