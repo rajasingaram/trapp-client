@@ -1,6 +1,7 @@
 {
   "name": "trapp-client",
   "version": "0.1.0",
+  "homepage": "https://rajasingaram.github.io/trapp",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
@@ -10,6 +11,7 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "bs-stepper": "^1.5.0",
+    "gh-pages": "^2.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8"
@@ -18,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
