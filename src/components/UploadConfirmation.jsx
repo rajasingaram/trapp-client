@@ -11,6 +11,7 @@ export class UploadConfirmation extends Component {
     super(props);
 
     this.state = {
+      toggleActive: false,
       isUploadInprogress: false,
       response: null,
       error: null
@@ -30,7 +31,8 @@ export class UploadConfirmation extends Component {
       teamId: selectedTeam.ref,
       userId: selectedOwner.ref,
       releaseId: selectedRelease.ref,
-      trelloJson: trelloJson
+      trelloJson: trelloJson,
+      insertDescToAC: this.state.toggleActive
     };
 
     this.setState({
@@ -56,6 +58,10 @@ export class UploadConfirmation extends Component {
           error: JSON.stringify(err.response.data)
         });
       });
+  };
+
+  onToggle = () => {
+    this.setState({ toggleActive: !this.state.toggleActive });
   };
 
   render = () => {
@@ -185,6 +191,19 @@ export class UploadConfirmation extends Component {
           </div>
           <div className="inline-block mx-2">
             {selectedRelease ? selectedRelease.name : "(Not Selected)"}
+          </div>
+        </div>
+
+        <div className="row my-2">
+          <div className="inline-block font-weight-bold mx-2">
+            Add the trello card description to Acceptance Criteria :{" "}
+          </div>
+          <div className="inline-block mx-2">
+            <input
+              type="checkbox"
+              checked={this.state.toggleActive}
+              onChange={() => this.onToggle()}
+            />
           </div>
         </div>
       </div>

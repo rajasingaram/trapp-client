@@ -23,8 +23,6 @@ export class Search extends Component {
       this.setState({ query: searchTerm });
       this.props.doSearch(searchTerm);
     }
-
-    e.preventDefault();
   };
 
   render() {
