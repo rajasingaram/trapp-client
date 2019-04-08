@@ -27,7 +27,7 @@ export class ReleaseSelection extends Component {
 
           return (
             <StepperContent
-              headerText="Select Owner for User Stories"
+              headerText="Select Release for User Stories"
               onNext={() => onNextClick()}
               onPrevious={() => onPreviousClick()}
               onReset={() => onResetClick()}

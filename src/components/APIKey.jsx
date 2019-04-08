@@ -34,8 +34,9 @@ export class APIKey extends Component {
 
   render() {
     const newLocal = (
-      <div className="alert alert-warning" role="alert">
+      <div className="alert alert-info" role="alert">
         <div className="text-uppercase font-weight-bold">
+          <FontAwesomeIcon icon="info-circle" size="lg" className="mr-3" />
           How to retrieve API key from Rally?
         </div>
 
@@ -44,13 +45,13 @@ export class APIKey extends Component {
             <li>
               Go to&nbsp;
               <a
-                className="alert-link"
+                className="link font-italic font-weight-bold"
                 href="https://rally1.rallydev.com/login/accounts/index.html#/keys"
                 rel="noopener noreferrer"
                 target="_blank">
                 Rally API Keys
               </a>
-              .
+              &nbsp;page.
             </li>
             <li>Click the 'Create New API Key Button'</li>
             <li>Paste and submit your key below.</li>
@@ -59,7 +60,7 @@ export class APIKey extends Component {
         <p className="font-italic">
           NOTE: More info on{" "}
           <a
-            className="alert-link"
+            className="link font-italic font-weight-bold"
             href="https://comm.support.ca.com/kb/how-to-create-an-api-key-for-agile-central/kb000010814"
             rel="noopener noreferrer"
             target="_blank">
