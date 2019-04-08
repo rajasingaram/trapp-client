@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/trapp-client/precache-manifest.323093e2f3fc00892bcebab774fbe824.js"
+  "/trapp-client/precache-manifest.55e896c8c6bd656d5f14a8ad2e43ffac.js"
 );
 
 workbox.clientsClaim();
