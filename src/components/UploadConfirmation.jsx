@@ -198,12 +198,15 @@ export class UploadConfirmation extends Component {
           <div className="inline-block font-weight-bold mx-2">
             Add the trello card description to Acceptance Criteria :{" "}
           </div>
-          <div className="inline-block mx-2">
+          <div className="custom-control custom-checkbox inline-block mx-2 ">
             <input
               type="checkbox"
+              className="custom-control-input"
+              id="customCheck1"
               checked={this.state.toggleActive}
               onChange={() => this.onToggle()}
             />
+            <label class="custom-control-label" htmlFor="customCheck1" />
           </div>
         </div>
       </div>
