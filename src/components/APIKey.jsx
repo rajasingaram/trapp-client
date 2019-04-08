@@ -56,6 +56,16 @@ export class APIKey extends Component {
             <li>Paste and submit your key below.</li>
           </ul>
         </div>
+        <p class="font-italic">
+          NOTE: More info on{" "}
+          <a
+            className="alert-link"
+            href="https://comm.support.ca.com/kb/how-to-create-an-api-key-for-agile-central/kb000010814"
+            rel="noopener noreferrer"
+            target="_blank">
+            how to create Rally API
+          </a>
+        </p>
       </div>
     );
 
