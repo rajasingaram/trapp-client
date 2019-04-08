@@ -1,7 +1,7 @@
 {
   "name": "trapp-client",
   "version": "0.1.0",
-  "homepage": "https://rajasingaram.github.io/trapp",
+  "homepage": "https://rajasingaram.github.io/trapp-client",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
