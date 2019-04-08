@@ -11,12 +11,20 @@ export class Search extends Component {
     };
   }
 
+  handleKeyPress = event => {
+    if (event.key === "Enter") {
+      this.onClick(event);
+    }
+  };
+
   onClick = e => {
     const searchTerm = this.searchControl.value;
     if (searchTerm.trim()) {
       this.setState({ query: searchTerm });
       this.props.doSearch(searchTerm);
     }
+
+    e.preventDefault();
   };
 
   render() {
@@ -30,6 +38,7 @@ export class Search extends Component {
           className="form-control"
           aria-label="Search through Rally"
           ref={input => (this.searchControl = input)}
+          onKeyPress={this.handleKeyPress}
         />
         <div className="input-group-append">
           {isSearchProgress ? (
