@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Search from "./Search";
 import Result from "./Result";
+import ErrorMessage from "../ErrorMessage";
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -50,16 +51,22 @@ class SearchContainer extends Component {
           doSearch={searchTerm => this.search(searchTerm)}
         />
         {this.state.error ? (
-          <div className="alert alert-danger mt-4" role="alert">
-            {"Error while importing user stories." + this.state.error}
-          </div>
-        ) : (
+          <ErrorMessage
+            message="Error while searching for the given team name. Try a different search term."
+            className="mt-3"
+          />
+        ) : this.state.results.length ? (
           <Result
             key={"results" + this.key}
             type={this.props.type}
             selectedItem={this.props.selectedItem}
             results={this.state.results}
             onSelected={selectedItem => this.props.onItemSelected(selectedItem)}
+          />
+        ) : (
+          <ErrorMessage
+            message="No team found. Try a different search term."
+            className="mt-3"
           />
         )}
       </div>

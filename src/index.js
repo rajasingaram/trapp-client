@@ -10,7 +10,9 @@ import {
   faPlusCircle,
   faPen,
   faCheckCircle,
-  faUndoAlt
+  faUndoAlt,
+  faExclamationTriangle,
+  faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -20,7 +22,9 @@ library.add(
   faPlusCircle,
   faPen,
   faCheckCircle,
-  faUndoAlt
+  faUndoAlt,
+  faExclamationTriangle,
+  faInfoCircle
 );
 
 ReactDOM.render(<App />, document.getElementById("root"));

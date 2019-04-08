@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import StepperContent from "./Stepper/StepperContent";
 import { Consumer } from "../context";
 import { bulkInsertStories } from "../serverCall";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ErrorMessage from "./ErrorMessage";
 
 export class UploadConfirmation extends Component {
   constructor(props) {
@@ -38,13 +40,6 @@ export class UploadConfirmation extends Component {
     });
 
     bulkInsertStories(message, apiKey)
-      .catch(err =>
-        this.setState({
-          isUploadInprogress: false,
-          response: null,
-          error: err
-        })
-      )
       .then(res => res.data)
       .then(res =>
         this.setState({
@@ -52,7 +47,15 @@ export class UploadConfirmation extends Component {
           response: res,
           error: null
         })
-      );
+      )
+      .catch(err => {
+        console.error(err.response);
+        this.setState({
+          isUploadInprogress: false,
+          response: null,
+          error: JSON.stringify(err.response.data)
+        });
+      });
   };
 
   render = () => {
@@ -96,15 +99,17 @@ export class UploadConfirmation extends Component {
               onPrevious={() => onPreviousClick()}
               onReset={() => onResetClick()}
               isButtonDisabled={isButtonDisabled}>
-              {this.state.error
-                ? this.displayErrorMessage(this.state.error)
-                : this.state.response
-                ? this.displayResponse(this.state.response)
-                : this.displaySelectInfo(
-                    selectedTeam,
-                    selectedOwner,
-                    selectedRelease
-                  )}
+              {this.state.error ? (
+                <ErrorMessage message="Error while importing stories into Rally. Please verify the JSON copied from Trello Board." />
+              ) : this.state.response ? (
+                this.displayResponse(this.state.response)
+              ) : (
+                this.displaySelectInfo(
+                  selectedTeam,
+                  selectedOwner,
+                  selectedRelease
+                )
+              )}
             </StepperContent>
           );
         }}
@@ -112,32 +117,35 @@ export class UploadConfirmation extends Component {
     );
   };
 
-  displayErrorMessage = error => {
-    return (
-      <div className="alert alert-danger" role="alert">
-        {error}
-      </div>
-    );
-  };
-
   displayResponse = response => {
     return (
-      <div className="my-3 p-3">
-        {response.createdStories && (
-          <ul className="list-group">
-            {response.createdStories.map(item =>
-              this.displayUserStories("success", item)
-            )}
-          </ul>
-        )}
+      <div className="alert alert-success" role="alert">
+        <div className="row vertical-align">
+          <div className="col-xs-1 text-center mx-2">
+            <FontAwesomeIcon icon="check-circle" size="lg" />
+          </div>
+          <div class="col-xs-11 ml-2">
+            <strong>Success:</strong> Imported the following stories into Rally.
+          </div>
+        </div>
 
-        {response.errorStories && (
-          <ul className="list-group">
-            {response.errorStories.map(item =>
-              this.displayUserStories("danger", item)
-            )}
-          </ul>
-        )}
+        <div className="my-3 p-3">
+          {response.createdStories && (
+            <ul className="list-group">
+              {response.createdStories.map(item =>
+                this.displayUserStories("success", item)
+              )}
+            </ul>
+          )}
+
+          {response.errorStories && (
+            <ul className="list-group">
+              {response.errorStories.map(item =>
+                this.displayUserStories("danger", item)
+              )}
+            </ul>
+          )}
+        </div>
       </div>
     );
   };

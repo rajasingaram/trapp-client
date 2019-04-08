@@ -4,6 +4,7 @@ import StepperContent from "./Stepper/StepperContent";
 import { Consumer } from "../context";
 import { searchUsers } from "../serverCall";
 import Result from "./Search/Result";
+import InfoMessage from "./InfoMessage";
 
 class OwnerSelection extends Component {
   doUserSearch = async (searchTerm, apiKey, dispatch) => {
@@ -38,11 +39,18 @@ class OwnerSelection extends Component {
               onPrevious={() => onPreviousClick()}
               onReset={() => onResetClick()}
               isButtonDisabled={isOwnerNotSelected}>
-              <Result
-                results={teamMembers}
-                selectedItem={isOwnerNotSelected ? "" : selectedOwner.ref}
-                onSelected={item => this.onOwnerSelection(item, dispatch)}
-              />
+              {teamMembers && teamMembers.length ? (
+                <Result
+                  results={teamMembers}
+                  selectedItem={isOwnerNotSelected ? "" : selectedOwner.ref}
+                  onSelected={item => this.onOwnerSelection(item, dispatch)}
+                />
+              ) : (
+                <InfoMessage
+                  message="The selected team does not contain any team members. Please add team members in Rally."
+                  className="mt-3"
+                />
+              )}
             </StepperContent>
           );
         }}
