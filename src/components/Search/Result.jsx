@@ -1,61 +1,69 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Result extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selected: ""
-    };
-  }
-
-  onClick = item => {
-    console.log(item);
-    this.setState({
-      selected: item.ref
-    });
-  };
-
   render() {
-    const { result } = this.props;
-    const { selectedItem } = this.state;
+    const { selectedItem, results } = this.props;
     let i = 1;
     const mapResultItem = item => {
+      const isActive = selectedItem === item.ref;
       let styling =
-        "list-group-item list-group-item-action" +
-        (selectedItem === item.ref ? " active" : "");
+        "list-group-item list-group-item-action" + (isActive ? " active" : "");
+
+      console.log(selectedItem);
 
       return (
-        <li
+        <button
+          type="button"
           className={styling}
-          onClick={() => this.onClick(item)}
+          onClick={() => {
+            this.props.onSelected(item);
+          }}
           key={item.ref + i++}>
           {item.name}
-        </li>
+          {isActive ? (
+            <span className="d-inline-block ml-2">
+              <FontAwesomeIcon icon="check-circle" />
+            </span>
+          ) : (
+            ""
+          )}
+        </button>
       );
     };
 
-    return (
-      <div className="mt-5">
-        <ul className="list-group">{result.map(mapResultItem)}</ul>
-      </div>
-    );
+    if (results) {
+      if (results && results.length) {
+        return (
+          <div className="mt-4">
+            <div className="list-group">{results.map(mapResultItem)}</div>
+          </div>
+        );
+      } else {
+        return (
+          <div className="alert alert-dark mt-4" role="alert">
+            Please do a search to select a team
+          </div>
+        );
+      }
+    }
+    return;
   }
 }
 
 Result.propTypes = {
   type: PropTypes.string.isRequired,
-  result: PropTypes.array
+  selectedItem: PropTypes.string,
+  results: PropTypes.array,
+  onSelected: PropTypes.func
 };
 
 Result.defaultProps = {
   type: "team",
-  result: [
-    { ref: "/project/projectId1", name: "RMA.Bits&Giggles" },
-    { ref: "/project/projectId1", name: "RMA.CharlieBrown" },
-    { ref: "/project/projectId1", name: "RMA.Everest" }
-  ]
+  selectedItem: null,
+  results: [],
+  onSelected: () => {}
 };
 
 export default Result;

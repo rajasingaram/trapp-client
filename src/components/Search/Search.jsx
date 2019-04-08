@@ -7,26 +7,29 @@ export class Search extends Component {
     super(props);
 
     this.state = {
-      query: "",
-      isSearchProgress: false
+      query: this.props.searchTerm
     };
   }
 
   onClick = e => {
-    this.setState({ isSearchProgress: true });
+    const searchTerm = this.searchControl.value;
+    if (searchTerm.trim()) {
+      this.setState({ query: searchTerm });
+      this.props.doSearch(searchTerm);
+    }
   };
 
   render() {
-    const { isSearchProgress } = this.state;
-    const { type } = this.props;
+    const { isSearchProgress, type } = this.props;
 
     return (
-      <div className="input-group input-group-lg">
+      <div className="input-group">
         <input
           type="search"
           placeholder={"Search for a " + type}
           className="form-control"
           aria-label="Search through Rally"
+          ref={input => (this.searchControl = input)}
         />
         <div className="input-group-append">
           {isSearchProgress ? (
@@ -41,7 +44,7 @@ export class Search extends Component {
           ) : (
             <button
               className="btn btn-primary btn-search"
-              onClick={this.onClick}>
+              onClick={() => this.onClick(this.props.doSearch)}>
               <FontAwesomeIcon icon="search" />
               &nbsp; Search
             </button>
@@ -53,7 +56,9 @@ export class Search extends Component {
 }
 
 Search.propTypes = {
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
+  isSearchProgress: PropTypes.bool.isRequired,
+  searchTerm: PropTypes.string.isRequired
 };
 
 export default Search;

@@ -6,10 +6,22 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faSearch,
   faArrowCircleRight,
-  faPlusCircle
+  faArrowCircleLeft,
+  faPlusCircle,
+  faPen,
+  faCheckCircle,
+  faUndoAlt
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faSearch, faArrowCircleRight, faPlusCircle);
+library.add(
+  faSearch,
+  faArrowCircleRight,
+  faArrowCircleLeft,
+  faPlusCircle,
+  faPen,
+  faCheckCircle,
+  faUndoAlt
+);
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

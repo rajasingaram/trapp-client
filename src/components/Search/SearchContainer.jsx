@@ -10,16 +10,49 @@ class SearchContainer extends Component {
     this.state = {
       query: "",
       isSearchProgress: false,
-      results: null
+      results: props.results || []
     };
   }
 
+  search = searchTerm => {
+    this.setState({
+      query: searchTerm,
+      isSearchProgress: true
+    });
+
+    try {
+      this.props.doSearch(searchTerm).then(res => {
+        this.setState({
+          isSearchProgress: false,
+          results: res
+        });
+      });
+    } catch (e) {
+      this.setState({
+        isSearchProgress: false,
+        results: []
+      });
+    }
+  };
+
   render() {
+    console.log(this.state.results);
     return (
       <div className="search-container my-3">
-        <Search type={this.props.type} />
+        <Search
+          type={this.props.type}
+          searchTerm={this.state.query}
+          isSearchProgress={this.state.isSearchProgress}
+          doSearch={searchTerm => this.search(searchTerm)}
+        />
 
-        <Result type={this.props.type} />
+        <Result
+          key={"results" + this.key}
+          type={this.props.type}
+          selectedItem={this.props.selectedItem}
+          results={this.state.results}
+          onSelected={selectedItem => this.props.onItemSelected(selectedItem)}
+        />
       </div>
     );
   }
