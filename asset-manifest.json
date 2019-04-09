@@ -1,13 +1,13 @@
 {
-  "main.js": "/trapp-client/static/js/main.992e2241.chunk.js",
-  "main.js.map": "/trapp-client/static/js/main.992e2241.chunk.js.map",
+  "main.js": "/trapp-client/static/js/main.361e6b35.chunk.js",
+  "main.js.map": "/trapp-client/static/js/main.361e6b35.chunk.js.map",
   "runtime~main.js": "/trapp-client/static/js/runtime~main.3e2e52fb.js",
   "runtime~main.js.map": "/trapp-client/static/js/runtime~main.3e2e52fb.js.map",
   "static/css/2.5b0d8d84.chunk.css": "/trapp-client/static/css/2.5b0d8d84.chunk.css",
   "static/js/2.dce2211a.chunk.js": "/trapp-client/static/js/2.dce2211a.chunk.js",
   "static/js/2.dce2211a.chunk.js.map": "/trapp-client/static/js/2.dce2211a.chunk.js.map",
   "index.html": "/trapp-client/index.html",
-  "precache-manifest.55e896c8c6bd656d5f14a8ad2e43ffac.js": "/trapp-client/precache-manifest.55e896c8c6bd656d5f14a8ad2e43ffac.js",
+  "precache-manifest.4e3757fd198b9e3709af8b54982d2dc3.js": "/trapp-client/precache-manifest.4e3757fd198b9e3709af8b54982d2dc3.js",
   "service-worker.js": "/trapp-client/service-worker.js",
   "static/css/2.5b0d8d84.chunk.css.map": "/trapp-client/static/css/2.5b0d8d84.chunk.css.map"
 }
